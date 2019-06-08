@@ -64,7 +64,7 @@ export default {
   },
 
   // This is an example on how to use this method in a different file
-  // api.getCountries().then(countries => { /* ... */ })
+
   getUnicorns() {
     return service
       .get('/unicorns/rental')
