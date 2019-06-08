@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Route, Link, NavLink, Switch } from 'react-router-dom';
 import Home from './pages/Home';
 import Unicorns from './pages/Unicorns';
-import RentUnicorn from './pages/RentUnicorn';
+
 import Secret from './pages/Secret';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
@@ -31,7 +31,6 @@ export default class App extends Component {
             Home
           </NavLink>
           <NavLink to='/unicorns'>Unicorns</NavLink>
-          <NavLink to='/rent-unicorn'>Rent Unicorn</NavLink>
           {!api.isLoggedIn() && <NavLink to='/signup'>Signup</NavLink>}
           {!api.isLoggedIn() && <NavLink to='/login'>Login</NavLink>}
           {api.isLoggedIn() && (
@@ -44,7 +43,6 @@ export default class App extends Component {
         <Switch>
           <Route path='/' exact component={Home} />
           <Route path='/unicorns' component={Unicorns} />
-          <Route path='/rent-unicorn' component={RentUnicorn} />
           <Route path='/signup' component={Signup} />
           <Route path='/login' component={Login} />
           <Route path='/secret' component={Secret} />

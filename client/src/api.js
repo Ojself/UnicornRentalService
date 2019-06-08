@@ -67,14 +67,15 @@ export default {
 
   getUnicorns() {
     return service
-      .get('/unicorns/rental')
+      .get('/unicorns/rentals')
       .then(res => res.data)
       .catch(errHandler);
   },
 
   rentUnicorn(body) {
+    console.log(body, 'api click');
     return service
-      .post('/unicorns/rentals', body)
+      .post('/unicorns/rentals', { unicorn: body })
       .then(res => res.data)
       .catch(errHandler);
   },

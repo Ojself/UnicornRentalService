@@ -2,21 +2,6 @@
 // Definition of variables
 $primary: #32c3ff;
 
-
-// ----------------------------------------
-// To install Boostrap:
-// 1) Run in the client folder: $ npm i bootstrap
-// 2) Import bootstrap with the following line
-// @import '../node_modules/bootstrap/scss/bootstrap.scss';
-// 
-// To install Reactstrap:
-// 1) Run in the client folder: $ npm i reactstrap
-// 2) Go to the official documentation and take some examples: https://reactstrap.github.io/
-// import { Button } from 'reactstrap';
-// <Button color="danger">Danger!</Button>
-// ----------------------------------------
-
-
 // --------------------
 // Style reusable for all components
 body {
@@ -91,11 +76,36 @@ body {
   }
 }
 
-// --------------------
-// Style for Secret component
-.Secret {
-  .result {
-    font-size: 1.2em;
-    color: $primary;
-  }
+.box {
+  border: 1px solid black;
+  padding: 5px;
+  margin: 10px 0;
+  line-height: 1.5rem;
+}
+
+.unicorn-card {
+  display: flex;
+}
+
+.unicorn-card img {
+  margin-right: 5px;
+  height: 150px;
+  width: 150px;
+  object-fit: contain;
+}
+
+.btn {
+  background-color: purple;
+  padding: 5px;
+  width: 100px;
+  color: white;
+  font-size: 1rem;
+}
+
+.enabled {
+  background-color: purple;
+}
+
+.disabled {
+  background-color: purple;
 }

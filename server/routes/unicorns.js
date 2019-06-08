@@ -26,9 +26,8 @@ router.get('/rentals', async (req, res, next) => {
 */
 
 router.post('/rentals', async (req, res, next) => {
-  /* let { user } = req; */
+  let user = req.user._id;
   let { unicorn } = req.body;
-  let { user } = req.body;
   let currentDate = Date.now();
   let listUnicorns = await Unicorn.find();
 
