@@ -5,27 +5,37 @@ export default class Secret extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      health: null,
+      data: null,
+
       message: null
     };
   }
   render() {
-    return (
+    let health = this.state.data;
+
+    return health ? (
       <div className='Health'>
         <h2>Health of the application</h2>
-
-        <div className='result'>{this.state.health}</div>
+        <ul>
+          <li>Status: {health.status}</li>
+          <li>MongoDB: {health.dbStatus}</li>
+          <li>Uptime: {Math.floor(health.upTime)} s</li>
+          <li>Heaptotal: {health.memoryUsage.heapTotal}</li>
+          <li>Platform: {health.platform}</li>
+        </ul>
 
         {this.state.message && (
           <div className='info info-danger'>{this.state.message}</div>
         )}
       </div>
+    ) : (
+      <div>Analyzing your server, please wait..</div>
     );
   }
   componentDidMount() {
     api
       .getHealth()
-      .then(data => this.setState({ secret: data.secret }))
+      .then(data => this.setState({ data }))
       .catch(err => this.setState({ message: err.toString() }));
   }
 }

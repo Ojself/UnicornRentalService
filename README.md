@@ -13,6 +13,8 @@ This application is the result of a code-challenge given to by a German company 
 Rules of the code-challenge can be found in
 ./unicorn-rental.pdf
 
+Small note about healtz endpoint. I do not recommend to put the server health visible in the frontend like this project. It should be only accessible by logged in users that has admin-role.
+
 ## Set up and execution of the project
 
 **To download the application and link it with your GitHub project**
@@ -110,11 +112,25 @@ package.json
 README.md
 ```
 
+### `server/routes/auth.js`
+
+- `router.post('/signup')`: Route to create a new user
+- `router.post('/login')`: Route to send the user JWT
+  authenticated
+
 ### `server/routes/unicorns.js`
 
 - `router.get('/unicorns/rentals')`: Route to get all unicorns
 - `router.post('/unicorns/rentals')`: Route to rent a unicorn
 - `router.patch('/unicorns/rentals')`: Route to return a unicorn
+
+### `server/routes/index.js`
+
+- `router.get('/user')`: Route to get logged in user
+
+### `server/routes/healtz.js`
+
+- `router.get('/healtz')`: Route to get status of server
 
 ### To execute a seed
 

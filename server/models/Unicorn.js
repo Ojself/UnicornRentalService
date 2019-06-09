@@ -36,6 +36,13 @@ const unicornSchema = new mongoose.Schema({
   }
 });
 
+unicornSchema.methods.restPeriod = function(unicorn) {
+  setTimeout(() => {
+    unicorn.isAvailable = true;
+    unicorn.save();
+  }, 1000 * 60 * unicorn.downTime);
+};
+
 const Unicorn = mongoose.model('Unicorn', unicornSchema);
 
 module.exports = Unicorn;

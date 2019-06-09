@@ -1,22 +1,28 @@
 const express = require('express');
 const { isLoggedIn } = require('../middlewares');
 const router = express.Router();
-const Unicorn = require('../models/Unicorn');
-const User = require('../models/User');
+const mongoose = require('mongoose');
 
 /* 
 @GET
 @SECURED //  NON-ROLE-BASED
-@Hacker unfriendly
-https://inadarei.github.io/rfc-healthcheck/#rfc.section.3
+@Let's any logged in user do a health check of the server
  */
 
 router.get('/', isLoggedIn, (req, res, next) => {
+  let dbStatus;
   let upTime = process.uptime();
   let memoryUsage = process.memoryUsage();
+  let platform = process.platform;
 
-  res.json({
-    status: 'UP'
+  mongoose.connection.readyState ? (dbStatus = 'UP') : (dbStatus = 'DOWN');
+
+  res.status(200).json({
+    status: 'UP',
+    dbStatus,
+    upTime,
+    memoryUsage,
+    platform
   });
 });
 

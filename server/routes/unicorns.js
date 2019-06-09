@@ -11,7 +11,7 @@ const User = require('../models/User');
 @Lists unicorns and displays it for the client
 */
 
-router.get('/rentals', async (req, res, next) => {
+router.get('/rentals', isLoggedIn, async (req, res, next) => {
   try {
     const unicorns = await Unicorn.find();
     res.json(unicorns);
@@ -140,16 +140,32 @@ router.patch('/rentals', isLoggedIn, async (req, res, next) => {
   });
 
   /* Ensures that the unicorn gets rest between each customer and info updated*/
-  /* note to dev: save to datebase? */
-  setTimeout(() => {
-    Unicorn.findByIdAndUpdate(unicorn, {
+  /* note to dev: save downtime to datebase? */
+
+  console.log(unicornInfo, 'info');
+  console.log(unicorn, 'unicorn');
+  //restPeriod(unicornInfo);
+
+  let unicornRest = await Unicorn.findByIdAndUpdate(unicorn, {
+    $set: {
+      totalRevenue: unicornInfo.totalRevenue
+    },
+    $unset: { timeTraveled: 0, currentCustomer: '' }
+  });
+  await unicornRest.restPeriod(unicornInfo);
+
+  /* Works, but causes issues if server crashes during cooldown */
+  /* setTimeout(async () => {
+    await Unicorn.findByIdAndUpdate(unicorn, {
       $set: {
         isAvailable: true,
         totalRevenue: unicornInfo.totalRevenue
       },
+
       $unset: { timeTraveled: 0, currentCustomer: '' }
     });
   }, 1000 * 60 * unicornInfo.downTime);
+  */
 });
 
 module.exports = router;
