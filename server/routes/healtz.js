@@ -6,19 +6,17 @@ const User = require('../models/User');
 
 /* 
 @GET
-@SECURED
-@Hacker
+@SECURED //  NON-ROLE-BASED
+@Hacker unfriendly
 https://inadarei.github.io/rfc-healthcheck/#rfc.section.3
  */
 
 router.get('/', isLoggedIn, (req, res, next) => {
-  /* health check */
-  /* Databases */
-  /* Unicorns available */
-  /* Check routes? */
+  let upTime = process.uptime();
+  let memoryUsage = process.memoryUsage();
 
   res.json({
-    health: 'All systems operational'
+    status: 'UP'
   });
 });
 

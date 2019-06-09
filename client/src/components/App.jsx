@@ -3,11 +3,10 @@ import { Route, Link, NavLink, Switch } from 'react-router-dom';
 import Home from './pages/Home';
 import Unicorns from './pages/Unicorns';
 
-import Secret from './pages/Secret';
+import Health from './pages/Health';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
 import api from '../api';
-import logo from '../logo.svg';
 
 export default class App extends Component {
   constructor(props) {
@@ -25,12 +24,11 @@ export default class App extends Component {
     return (
       <div className='App'>
         <header className='App-header'>
-          <img src={logo} className='App-logo' alt='logo' />
           <h1 className='App-title'>Unicorn rental service</h1>
           <NavLink to='/' exact>
             Home
           </NavLink>
-          <NavLink to='/unicorns'>Unicorns</NavLink>
+          {api.isLoggedIn() && <NavLink to='/unicorns'>Unicorns</NavLink>}
           {!api.isLoggedIn() && <NavLink to='/signup'>Signup</NavLink>}
           {!api.isLoggedIn() && <NavLink to='/login'>Login</NavLink>}
           {api.isLoggedIn() && (
@@ -38,14 +36,14 @@ export default class App extends Component {
               Logout
             </Link>
           )}
-          <NavLink to='/secret'>Secret</NavLink>
+          {api.isLoggedIn() && <NavLink to='/healtz'>Health</NavLink>}
         </header>
         <Switch>
           <Route path='/' exact component={Home} />
           <Route path='/unicorns' component={Unicorns} />
           <Route path='/signup' component={Signup} />
           <Route path='/login' component={Login} />
-          <Route path='/secret' component={Secret} />
+          <Route path='/healtz' component={Health} />
           <Route render={() => <h2>404</h2>} />
         </Switch>
       </div>

@@ -6,8 +6,26 @@ export default class Unicorns extends Component {
     super(props);
     this.state = {
       unicorns: [],
+      user: null,
       message: null
     };
+  }
+
+  handleReturn(e) {
+    e.preventDefault();
+    console.log('handling return');
+    api.returnUnicorn().then(result => {
+      console.log(result, 'result');
+      console.log('SUCCESS!');
+      this.setState({
+        message: `Your Unicorn has been returned`
+      });
+    });
+    setTimeout(() => {
+      this.setState({
+        message: null
+      });
+    }, 3000);
   }
 
   handleClick(e) {
@@ -19,7 +37,7 @@ export default class Unicorns extends Component {
       .then(result => {
         console.log('SUCCESS!');
         this.setState({
-          message: `Your Unicorn has been rented`
+          message: `Your unicorn has been rented`
         });
         setTimeout(() => {
           this.setState({
@@ -31,6 +49,11 @@ export default class Unicorns extends Component {
   }
 
   render() {
+    let myUnicorn;
+    if (this.state.user) {
+      myUnicorn = this.state.user.currentUnicorn;
+    }
+
     return (
       <div className='unicornswrapper'>
         {this.state.message ? (
@@ -46,7 +69,15 @@ export default class Unicorns extends Component {
               <strong>Name</strong>: {u.name} <br />
               <strong>Price</strong>: {u.price}$ <br />
               <strong>Resttime</strong>: {u.downTime} minutes <br />
-              {u.isAvailable ? (
+              {myUnicorn === u._id ? (
+                <button
+                  className='btn enabled'
+                  value={u._id}
+                  onClick={e => this.handleReturn(e)}
+                >
+                  Return
+                </button>
+              ) : u.isAvailable ? (
                 <button
                   value={u._id}
                   onClick={e => this.handleClick(e)}
@@ -72,6 +103,11 @@ export default class Unicorns extends Component {
       .then(unicorns => {
         this.setState({
           unicorns: unicorns
+        });
+      })
+      .then(() => {
+        api.getUser().then(user => {
+          this.setState(user);
         });
       })
       .catch(err => console.log(err));

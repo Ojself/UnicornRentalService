@@ -73,16 +73,29 @@ export default {
   },
 
   rentUnicorn(body) {
-    console.log(body, 'api click');
     return service
       .post('/unicorns/rentals', { unicorn: body })
       .then(res => res.data)
       .catch(errHandler);
   },
 
-  returnUnicorn(body) {
+  returnUnicorn() {
     return service
-      .patch('/unicorns/rentals', body)
+      .patch('/unicorns/rentals')
+      .then(res => res.data)
+      .catch(errHandler);
+  },
+
+  getUser() {
+    return service
+      .get('/user')
+      .then(res => res.data)
+      .catch(errHandler);
+  },
+
+  getHealth() {
+    return service
+      .get('/healtz/')
       .then(res => res.data)
       .catch(errHandler);
   }

@@ -9,8 +9,8 @@ export default class Home extends Component {
   render() {
     return (
       <div className='Home'>
-        <h2>Home</h2>
-        <p>This is a paragraph with text</p>
+        <h2>Unicorn rental service</h2>
+        <p> Unicorns are the new taxis</p>
       </div>
     );
   }
