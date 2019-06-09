@@ -10,15 +10,34 @@ export default class Unicorns extends Component {
       message: null
     };
   }
+  componentDidMount() {
+    api
+      .getUnicorns()
+      .then(unicorns => {
+        this.setState({
+          unicorns: unicorns
+        });
+      })
+      .then(() => {
+        api.getUser().then(user => {
+          this.setState(user);
+        });
+      })
+      .catch(err => console.log(err));
+  }
 
   handleReturn(e) {
+    console.log(this.state, 'state');
+
     e.preventDefault();
-    console.log('handling return');
     api.returnUnicorn().then(result => {
-      console.log(result, 'result');
+      const userCopy = this.state.user;
+      userCopy.currentUnicorn = '';
+
       console.log('SUCCESS!');
       this.setState({
-        message: `Your Unicorn has been returned`
+        message: `Your Unicorn has been returned`,
+        user: userCopy
       });
     });
     setTimeout(() => {
@@ -36,8 +55,17 @@ export default class Unicorns extends Component {
       .rentUnicorn(unicornId)
       .then(result => {
         console.log('SUCCESS!');
+        const copy = [...this.state.unicorns];
+        const userCopy = this.state.user;
+        userCopy.currentUnicorn = unicornId;
+
+        copy.map(el => {
+          return el._id === unicornId ? (el.isAvailable = false) : null;
+        });
         this.setState({
-          message: `Your unicorn has been rented`
+          message: `Your unicorn has been rented`,
+          unicorns: copy,
+          user: userCopy
         });
         setTimeout(() => {
           this.setState({
@@ -96,20 +124,5 @@ export default class Unicorns extends Component {
         ))}
       </div>
     );
-  }
-  componentDidMount() {
-    api
-      .getUnicorns()
-      .then(unicorns => {
-        this.setState({
-          unicorns: unicorns
-        });
-      })
-      .then(() => {
-        api.getUser().then(user => {
-          this.setState(user);
-        });
-      })
-      .catch(err => console.log(err));
   }
 }

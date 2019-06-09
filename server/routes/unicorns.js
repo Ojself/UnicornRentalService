@@ -142,8 +142,6 @@ router.patch('/rentals', isLoggedIn, async (req, res, next) => {
   /* Ensures that the unicorn gets rest between each customer and info updated*/
   /* note to dev: save downtime to datebase? */
 
-  console.log(unicornInfo, 'info');
-  console.log(unicorn, 'unicorn');
   //restPeriod(unicornInfo);
 
   let unicornRest = await Unicorn.findByIdAndUpdate(unicorn, {
