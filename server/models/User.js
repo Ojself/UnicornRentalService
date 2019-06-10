@@ -9,7 +9,8 @@ const userSchema = new Schema(
     currentUnicorn: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Unicorn'
-    }
+    },
+    ip: String
   },
   {
     timestamps: {

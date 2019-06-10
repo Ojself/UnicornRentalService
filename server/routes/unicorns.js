@@ -42,7 +42,7 @@ router.post('/rentals', isLoggedIn, async (req, res, next) => {
     return;
   }
 
-  /* Checks if user is trying to rent a unicorn that doesn't exist */
+  /* Checks if there's any available unicorns */
   if (!listUnicorns.some(u => u.isAvailable)) {
     res.status(404).json({
       success: false,

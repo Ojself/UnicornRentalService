@@ -27,8 +27,6 @@ export default class Unicorns extends Component {
   }
 
   handleReturn(e) {
-    console.log(this.state, 'state');
-
     e.preventDefault();
     api.returnUnicorn().then(result => {
       const userCopy = this.state.user;
@@ -122,6 +120,9 @@ export default class Unicorns extends Component {
             </div>
           </div>
         ))}
+        <p>
+          Databases are wiped every day to ensure the return of our unicorns
+        </p>
       </div>
     );
   }

@@ -6,6 +6,7 @@
 ## Global information
 
 [Heroku Demo](https://unicornrentalservice.herokuapp.com/)
+
 [Github](https://github.com/Ojself/UnicornRentalService)
 
 This application is the result of a code-challenge given to by a German company for a backend developer position.
