@@ -1,3 +1,5 @@
+![](screenshotFeb2020.png)
+
 # Unicorn Rental Service
 
 - [Global Information](#global-information)
